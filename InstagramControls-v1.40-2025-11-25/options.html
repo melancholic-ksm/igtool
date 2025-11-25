@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Controls for Instagram Videos Extension Config</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-size: 14px;
+        }
+
+        h1 {
+            font-weight: normal;
+            font-size: 3em;
+        }
+
+        h2 {
+            font-weight: normal;
+            font-size: 2em;
+        }
+
+        .tcenter {
+            text-align: center;
+        }
+
+        kbd {
+            display: inline-block;
+            margin: 0 .1em;
+            padding: .1em .6em;
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #242729;
+            text-shadow: 0 1px 0 #FFF;
+            background-color: #e1e3e5;
+            border: 1px solid #adb3b9;
+            border-radius: 3px;
+            box-shadow: 0 1px 0 rgba(12,13,14,0.2), 0 0 0 2px #FFF inset;
+            white-space: nowrap;
+        }
+        [type=number] {
+            width: 4em;
+        }
+        td label {
+            padding: 4em 2em;
+        }
+        th {
+            text-align: center;
+        }
+        th, td {
+            padding: 2px 8px;
+        }
+        .centered {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .visible {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.05s linear;
+        }
+        .hidden {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 2s, opacity 2s linear;
+        }
+        .config-table {
+            width: 60%;
+            margin: auto;
+        }
+        .config-table td {
+            padding: 1em 0.5em;
+        }
+        .config-table tr:nth-child(even) {
+            background-color: #f1f3f5;
+        }
+        .config-table tr:nth-child(odd) {
+            background-color: #e1e3e5;
+        }
+        .explanation {
+            font-weight: normal;
+        }
+        .explanation ul {
+            display: inline-block;
+            text-align: left;
+        }
+        #status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="tcenter">
+    <h1>Controls for Instagram Videos</h1>
+    <div>
+        <span style="background: rgba(100, 200, 100, 0.2); padding: 1em;">
+            <strong>✓</strong> Volume and playback speed are now remembered across videos and page reloads.
+        </span>
+    </div>
+    <br>
+    <hr>
+    <h2>Extension Config</h2>
+
+</div>
+
+<div class="centered tcenter">
+
+    <form>
+        <div id="status" class="hidden">Config Saved.</div>
+
+        <table class="config-table">
+            <tbody>
+            <tr>
+                <th>
+                    <h2>Remember Video Volume Level</h2>
+
+                    <div class="explanation">
+                        <p>If you enable this option, then when you change the volume of a video it
+                            will be remembered and used not only for videos you encounter in the future, but also for other videos
+                            currently in the same page (even if they're paused). You can adjust the volume either
+                            by using the control menu in the bottom-right corner of the video, or you can change it via
+                            a <a href="chrome://extensions/shortcuts" specialProto>hotkey / shortcut</a>.
+                        </p>
+                    </div>
+                </th>
+                <td>
+                    <label><input type="checkbox" id="rememberVolumeLevel"></label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h2>Current Volume Level</h2>
+                    <div class="explanation">
+                        <p>The range is 0 to 1 (100%).</p>
+                    </div>
+                </th>
+                <td>
+                    <label><input type="number" id="volumeLevel" min="0" max="1" step="0.1" value="1"></label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h2>Volume Adjustment Step Size</h2>
+                    <div class="explanation">
+                        <p>When you use hotkeys to adjust the volume up or down, this setting determines
+                            how much the volume will change each time you press the hotkey. Recommended value is 0.1 or 0.2.</p>
+                    </div>
+                </th>
+                <td>
+                    <label><input type="number" id="volumeAdjustmentStepSize" min="0.01" max="1" step="0.01" value="0.1"></label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h2>Remember Video Playback Rate</h2>
+
+                    <div class="explanation">
+                        <p>If you enable this option, then when you change the playback rate of a video it
+                            will be remembered and used not only for videos you encounter in the future, but also for other videos
+                            currently in the same page (even if they're paused). You can adjust the video playback speed either
+                            by using the control menu in the bottom-right corner of the video, or you can change it via
+                            a <a href="chrome://extensions/shortcuts" specialProto>hotkey / shortcut</a>.
+                        </p>
+                    </div>
+
+                </th>
+                <td>
+                    <label><input type="checkbox" id="rememberPlaybackRate"></label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h2>Current Playback Rate</h2>
+                    <div class="explanation">
+                        <p>Normal speed is 1.0. The Video Playback Rate range of 0.125 to 4.0 is recommended.</p>
+
+                        <p>Using values outside that range may not work at all, or you may not hear any audio.
+                            As of Nov 1st 2019, Chrome Version 80 seems to allow a range of 0.0625 to 16. The range that works may change in the future,
+                            and may change if you update hardware or drivers.</p>
+                    </div>
+                </th>
+                <td>
+                    <label><input type="number" id="playbackRate" min="0.001" max="64" step="0.1" value="1"></label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h2>Playback Rate Adjustment Step Size</h2>
+                    <div class="explanation">
+                        <p>When you use hotkeys to adjust the playback rate up or down, this setting determines
+                            how much the rate will change each time you press the hotkey. Recommended value is either
+                            0.125 or 0.25.</p>
+
+                        <p>Note: the native video playback rate GUI controls in the bottom-right corner of videos
+                            uses a step size of 0.25, so if your current speed happens to be a multiple of 0.25, then
+                            the native GUI will show a checkmark next to your speed, which gives you an easy way to see
+                            what the current speed actually is. But if you don't care about that,
+                            then feel free to use any step size you like. Example:</p>
+                        <p><img src="icons/playback-speed-gui.png" style="width: 300px;"></p>
+                    </div>
+                </th>
+                <td>
+                    <label><input type="number" id="playbackRateAdjustmentStepSize" min="0.001" max="8" step="0.125" value="0.125"></label>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <h2>Debug Mode</h2>
+                    <div class="explanation">
+                        <p>Enable this option to log debug information to the browser console.
+                            Useful for troubleshooting issues with the extension.</p>
+                    </div>
+                </th>
+                <td>
+                    <label><input type="checkbox" id="debugMode"></label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+
+</div>
+
+<script src="options.js"></script>
+</body>
+</html>

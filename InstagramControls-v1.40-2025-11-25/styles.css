@@ -1,0 +1,24 @@
+div.ctrls4insta-raise-button {
+    bottom: 50px;
+}
+div.ctrls4insta-fade-button {
+    opacity: 0.4;
+    transition: opacity 4s ease-out;
+}
+div.ctrls4insta-fade-button:hover {
+    opacity: 1;
+    transition: opacity .05s ease-out;
+}
+
+
+
+/*todo we can prob remove the dynamic injection of this style, but need to test more.*/
+video[data-native-controls-i-set-joo-free][controls]::-webkit-media-controls { display: flex; }
+
+/*Maybe we'll hide the native play button sometimes in places where it no longer works well (like the home feed). not yet tho.*/
+video.ctrls4insta-disable-native-play-button[controls]::-webkit-media-controls-play-button { visibility: hidden; }
+
+/* Hide Instagram's custom mute/unmute button (SVG or button with aria-label=Audio or similar) */
+[aria-label="Audio"], [aria-label*="Mute"], [aria-label*="Unmute"], button[aria-label="Audio"], button[aria-label*="Mute"], button[aria-label*="Unmute"] {
+    display: none !important;
+}
