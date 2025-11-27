@@ -158,14 +158,14 @@ Instagram™ is a registered trademark. This extension was developed independent
 
  You can install one of these versions without having to go through the Chrome Webstore. Just unzip it, and then from chrome://extensions/ use the Load Unpacked Extension button. You should only do this for extensions you trust.
 
-[InstagramControls-v1.33-2023-02-05-12-28.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.33-2023-02-05-12-28.zip)
-[[InstagramControls-v1.32-2023-02-02-12-28.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.32-2023-02-02-12-28.zip)
-InstagramControls-v1.23-2020-10-11-05-36.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.23-2020-10-11-05-36.zip)
-[InstagramControls-v1.22-2020-08-09-09-40.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.22-2020-08-09-09-40.zip)
-[InstagramControls-v1.21-2020-08-04-03-15.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.21-2020-08-04-03-15.zip)
-[InstagramControls-v1.20-2020-08-02-03-14.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.20-2020-08-02-03-14.zip)
+- [InstagramControls-v1.33-2023-02-05-12-28.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.33-2023-02-05-12-28.zip)
+- [InstagramControls-v1.32-2023-02-02-12-28.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.32-2023-02-02-12-28.zip)
+- [InstagramControls-v1.23-2020-10-11-05-36.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.23-2020-10-11-05-36.zip)
+- [InstagramControls-v1.22-2020-08-09-09-40.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.22-2020-08-09-09-40.zip)
+- [InstagramControls-v1.21-2020-08-04-03-15.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.21-2020-08-04-03-15.zip)
+- [InstagramControls-v1.20-2020-08-02-03-14.zip](https://rehfeld.us/browser-extensions/controls-for-instagram/zips/InstagramControls-v1.20-2020-08-02-03-14.zip)
 
-Latest (Fork) [InstagramControls-v2.0-2025-11-27.zip](https://github.com/melancholic-ksm/igtool/archive/refs/heads/main.zip)
+* Latest (Fork) [InstagramControls-v2.0-2025-11-27.zip](https://github.com/melancholic-ksm/igtool/archive/refs/heads/main.zip)
 
 
 ## Privacy in Fork of Extension 
