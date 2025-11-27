@@ -8,7 +8,12 @@
         :root {
             --primary-color: #E1306C;
             --primary-hover: #C13584;
+            --primary-light: rgba(225, 48, 108, 0.1);
+            --secondary-color: #833AB4;
+            --accent-color: #F77737;
             --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --error-color: #f44336;
             --bg-color: #fafafa;
             --card-bg: #ffffff;
             --text-color: #262626;
@@ -16,6 +21,31 @@
             --border-color: #dbdbdb;
             --section-bg-odd: #f8f9fa;
             --section-bg-even: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.2);
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
 
         * {
@@ -29,73 +59,181 @@
             font-size: 14px;
             line-height: 1.5;
             color: var(--text-color);
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+            min-height: 100vh;
             padding: 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
+            animation: fadeIn 0.5s ease;
         }
 
         header {
             text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover), #833AB4);
+            padding: 40px 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover), var(--secondary-color));
             color: white;
-            border-radius: 12px;
+            border-radius: 16px;
             margin-bottom: 24px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
         }
 
         header h1 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         header p {
+            font-size: 15px;
+            opacity: 0.95;
+            position: relative;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 12px;
+            backdrop-filter: blur(4px);
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .quick-action-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
             font-size: 14px;
-            opacity: 0.9;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all var(--transition-normal);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quick-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .quick-action-btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #45a049);
+            color: white;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-color), #f57c00);
+            color: white;
         }
 
         .status-banner {
-            background: linear-gradient(90deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+            background: linear-gradient(90deg, rgba(76, 175, 80, 0.15), rgba(76, 175, 80, 0.05));
             border: 1px solid rgba(76, 175, 80, 0.3);
-            border-radius: 8px;
-            padding: 12px 16px;
+            border-radius: 12px;
+            padding: 16px 20px;
             margin-bottom: 24px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            animation: slideIn 0.5s ease 0.2s both;
         }
 
         .status-banner .icon {
-            font-size: 20px;
+            font-size: 24px;
+            background: var(--success-color);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .status-banner p {
             color: #2e7d32;
             font-weight: 500;
+            font-size: 14px;
         }
 
         .section {
             background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
             overflow: hidden;
+            transition: box-shadow var(--transition-normal);
+            animation: slideIn 0.5s ease both;
         }
+
+        .section:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
 
         .section-header {
             background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
             color: white;
-            padding: 14px 20px;
-            font-size: 16px;
+            padding: 16px 24px;
+            font-size: 17px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+        }
+
+        .section-header-icon {
+            font-size: 22px;
         }
 
         .section-content {
@@ -106,9 +244,14 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            padding: 20px;
+            padding: 24px;
             border-bottom: 1px solid var(--border-color);
-            gap: 20px;
+            gap: 24px;
+            transition: background-color var(--transition-fast);
+        }
+
+        .setting-row:hover {
+            background-color: var(--primary-light);
         }
 
         .setting-row:last-child {
@@ -123,34 +266,62 @@
             background-color: var(--section-bg-even);
         }
 
+        .setting-row:nth-child(odd):hover,
+        .setting-row:nth-child(even):hover {
+            background-color: var(--primary-light);
+        }
+
         .setting-info {
             flex: 1;
         }
 
         .setting-info h3 {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .setting-info p {
             font-size: 13px;
             color: var(--text-secondary);
-            line-height: 1.5;
+            line-height: 1.6;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-new {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .badge-pro {
+            background: var(--secondary-color);
+            color: white;
         }
 
         .setting-control {
             flex-shrink: 0;
             display: flex;
             align-items: center;
+            gap: 12px;
         }
 
-        /* Toggle Switch */
+        /* Toggle Switch - Enhanced */
         .toggle-switch {
             position: relative;
-            width: 50px;
-            height: 26px;
+            width: 56px;
+            height: 30px;
         }
 
         .toggle-switch input {
@@ -166,22 +337,22 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #ccc;
-            transition: 0.3s;
-            border-radius: 26px;
+            background-color: #d1d5db;
+            transition: var(--transition-normal);
+            border-radius: 30px;
         }
 
         .toggle-slider:before {
             position: absolute;
             content: "";
-            height: 20px;
-            width: 20px;
+            height: 24px;
+            width: 24px;
             left: 3px;
             bottom: 3px;
             background-color: white;
-            transition: 0.3s;
+            transition: var(--transition-normal);
             border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
         input:checked + .toggle-slider {
@@ -189,164 +360,411 @@
         }
 
         input:checked + .toggle-slider:before {
-            transform: translateX(24px);
+            transform: translateX(26px);
         }
 
-        /* Number Input */
+        input:focus + .toggle-slider {
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        /* Number Input - Enhanced */
         input[type="number"] {
-            width: 80px;
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 14px;
+            width: 90px;
+            padding: 10px 14px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
             text-align: center;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all var(--transition-normal);
+            background: var(--card-bg);
+        }
+
+        input[type="number"]:hover {
+            border-color: var(--primary-color);
         }
 
         input[type="number"]:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(225, 48, 108, 0.1);
+            box-shadow: 0 0 0 4px var(--primary-light);
         }
 
-        /* Keyboard Shortcuts Section */
+        /* Range Slider */
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 200px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border-color);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: transform var(--transition-fast);
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .range-value {
+            min-width: 50px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Quick Presets */
+        .presets-container {
+            padding: 20px 24px;
+            background: var(--section-bg-odd);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .presets-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .preset-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .preset-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* Keyboard Shortcuts Section - Enhanced */
         .shortcuts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 12px;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            padding: 24px;
         }
 
         .shortcut-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            background: var(--section-bg-odd);
-            border-radius: 8px;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, var(--section-bg-odd), var(--card-bg));
+            border-radius: 12px;
             border: 1px solid var(--border-color);
+            transition: all var(--transition-fast);
+        }
+
+        .shortcut-item:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
         }
 
         .shortcut-item span {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-color);
+            font-weight: 500;
         }
 
         kbd {
             display: inline-block;
-            padding: 4px 8px;
+            padding: 6px 10px;
             font-family: "SF Mono", Monaco, "Courier New", monospace;
             font-size: 12px;
+            font-weight: 600;
             color: var(--text-color);
-            background-color: #f1f3f5;
+            background: linear-gradient(180deg, #f8f9fa, #e9ecef);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
         }
 
-        /* Features List */
+        /* Features List - Enhanced */
         .features-list {
-            padding: 20px;
+            padding: 24px;
         }
 
         .feature-item {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border-color);
+            gap: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--section-bg-odd), var(--card-bg));
+            border-radius: 12px;
+            transition: all var(--transition-fast);
+            border: 1px solid transparent;
+        }
+
+        .feature-item:hover {
+            border-color: var(--primary-color);
+            transform: translateX(4px);
         }
 
         .feature-item:last-child {
-            border-bottom: none;
+            margin-bottom: 0;
         }
 
         .feature-icon {
-            font-size: 20px;
+            font-size: 28px;
             flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-light);
+            border-radius: 12px;
         }
 
         .feature-text h4 {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            color: var(--text-color);
         }
 
         .feature-text p {
             font-size: 13px;
             color: var(--text-secondary);
+            line-height: 1.5;
         }
 
-        /* Status Notification */
+        /* Status Notification - Enhanced */
         #status {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--success-color);
+            top: 24px;
+            right: 24px;
+            background: linear-gradient(135deg, var(--success-color), #45a049);
             color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 500;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
             z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .visible {
             visibility: visible;
             opacity: 1;
-            transition: opacity 0.2s ease;
+            transform: translateX(0);
+            transition: all 0.3s ease;
         }
 
         .hidden {
             visibility: hidden;
             opacity: 0;
-            transition: visibility 0s 1.5s, opacity 1.5s ease;
+            transform: translateX(20px);
+            transition: all 0.3s ease;
         }
 
         /* Image */
         .setting-image {
             margin-top: 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            max-width: 250px;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            max-width: 280px;
+            transition: transform var(--transition-normal);
+        }
+
+        .setting-image:hover {
+            transform: scale(1.02);
         }
 
         /* Links */
         a {
             color: var(--primary-color);
             text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-fast);
         }
 
         a:hover {
+            color: var(--primary-hover);
             text-decoration: underline;
         }
 
-        /* Footer */
+        /* Footer - Enhanced */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 32px 20px;
             color: var(--text-secondary);
-            font-size: 12px;
+            font-size: 13px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+            margin-top: 24px;
+        }
+
+        footer .logo {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        footer h3 {
+            font-size: 16px;
+            color: var(--text-color);
+            margin-bottom: 8px;
         }
 
         footer a {
+            color: var(--primary-color);
+        }
+
+        footer .legal {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 11px;
             color: var(--text-secondary);
+        }
+
+        /* Data Management Section */
+        .data-management {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            padding: 24px;
+        }
+
+        .data-btn {
+            padding: 14px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--card-bg);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all var(--transition-normal);
+        }
+
+        .data-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .data-btn.danger:hover {
+            border-color: var(--error-color);
+            color: var(--error-color);
+            background: rgba(244, 67, 54, 0.05);
         }
 
         /* Responsive */
         @media (max-width: 600px) {
+            body {
+                padding: 12px;
+            }
+
+            header {
+                padding: 30px 20px;
+                border-radius: 12px;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .quick-actions {
+                flex-direction: column;
+            }
+
+            .quick-action-btn {
+                width: 100%;
+            }
+
             .setting-row {
                 flex-direction: column;
-                gap: 12px;
+                gap: 16px;
+                padding: 20px;
             }
-            
+
             .setting-control {
                 align-self: flex-start;
             }
-            
+
             .shortcuts-grid {
                 grid-template-columns: 1fr;
             }
+
+            .range-container {
+                width: 100%;
+            }
+
+            .data-management {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: var(--text-color);
+            color: white;
+            font-size: 12px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-fast);
+            z-index: 100;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+            bottom: calc(100% + 8px);
+        }
+
+        /* Hidden file input */
+        #importInput {
+            display: none;
         }
     </style>
 </head>
@@ -356,19 +774,39 @@
     <header>
         <h1>🎬 Controls for Instagram Videos</h1>
         <p>Enhanced video controls for a better Instagram experience</p>
+        <span class="version-badge">v1.40 • Fork Edition</span>
     </header>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+        <button class="quick-action-btn btn-primary" id="saveBtn">
+            <span>💾</span> Save Settings
+        </button>
+        <button class="quick-action-btn btn-secondary" id="resetBtn">
+            <span>🔄</span> Reset to Defaults
+        </button>
+        <button class="quick-action-btn btn-success" id="exportBtn">
+            <span>📤</span> Export Settings
+        </button>
+        <button class="quick-action-btn btn-warning" id="importBtn">
+            <span>📥</span> Import Settings
+        </button>
+        <input type="file" id="importInput" accept=".json">
+    </div>
 
     <div class="status-banner">
         <span class="icon">✓</span>
         <p>Volume and playback speed are automatically remembered across videos and page reloads.</p>
     </div>
 
-    <div id="status" class="hidden">✓ Settings Saved</div>
+    <div id="status" class="hidden">
+        <span>✓</span> Settings Saved
+    </div>
 
     <!-- Features Section -->
     <div class="section">
         <div class="section-header">
-            <span>✨</span> Features
+            <span class="section-header-icon">✨</span> Features Overview
         </div>
         <div class="features-list">
             <div class="feature-item">
@@ -388,22 +826,29 @@
             <div class="feature-item">
                 <span class="feature-icon">⏩</span>
                 <div class="feature-text">
-                    <h4>Playback Speed</h4>
+                    <h4>Playback Speed Control</h4>
                     <p>Control video speed from 0.125x to 16x and have it remembered for future videos.</p>
                 </div>
             </div>
             <div class="feature-item">
                 <span class="feature-icon">🖼️</span>
                 <div class="feature-text">
-                    <h4>Picture-in-Picture</h4>
+                    <h4>Picture-in-Picture <span class="badge badge-new">Enhanced</span></h4>
                     <p>Watch videos in a floating window with custom controls. Press <kbd>P</kbd> to toggle.</p>
                 </div>
             </div>
             <div class="feature-item">
                 <span class="feature-icon">🔇</span>
                 <div class="feature-text">
-                    <h4>Global Unmute</h4>
+                    <h4>Global Unmute <span class="badge badge-pro">Pro</span></h4>
                     <p>Unmute once and all subsequent videos play with sound - no more clicking mute on every video!</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">📱</span>
+                <div class="feature-text">
+                    <h4>Reel Navigation</h4>
+                    <p>Navigate between reels using keyboard shortcuts or PiP controls without leaving the current view.</p>
                 </div>
             </div>
         </div>
@@ -412,7 +857,7 @@
     <!-- Volume Settings -->
     <div class="section">
         <div class="section-header">
-            <span>🔊</span> Volume Settings
+            <span class="section-header-icon">🔊</span> Volume Settings
         </div>
         <div class="section-content">
             <div class="setting-row">
@@ -433,6 +878,10 @@
                     <p>Set the volume level (0 = muted, 1 = 100%). You can also adjust using the video controls or hotkeys.</p>
                 </div>
                 <div class="setting-control">
+                    <div class="range-container">
+                        <input type="range" id="volumeLevelRange" min="0" max="1" step="0.05" value="1">
+                        <span class="range-value" id="volumeLevelDisplay">100%</span>
+                    </div>
                     <input type="number" id="volumeLevel" min="0" max="1" step="0.1" value="1">
                 </div>
             </div>
@@ -446,12 +895,22 @@
                 </div>
             </div>
         </div>
+        <div class="presets-container">
+            <div class="presets-label">Quick Presets:</div>
+            <div class="preset-buttons">
+                <button class="preset-btn" data-volume="0">🔇 Mute</button>
+                <button class="preset-btn" data-volume="0.25">🔈 25%</button>
+                <button class="preset-btn" data-volume="0.5">🔉 50%</button>
+                <button class="preset-btn" data-volume="0.75">🔊 75%</button>
+                <button class="preset-btn" data-volume="1">🔊 100%</button>
+            </div>
+        </div>
     </div>
 
     <!-- Playback Settings -->
     <div class="section">
         <div class="section-header">
-            <span>⏩</span> Playback Speed Settings
+            <span class="section-header-icon">⏩</span> Playback Speed Settings
         </div>
         <div class="section-content">
             <div class="setting-row">
@@ -486,12 +945,23 @@
                 </div>
             </div>
         </div>
+        <div class="presets-container">
+            <div class="presets-label">Speed Presets:</div>
+            <div class="preset-buttons">
+                <button class="preset-btn" data-speed="0.5">0.5x Slow</button>
+                <button class="preset-btn" data-speed="0.75">0.75x</button>
+                <button class="preset-btn" data-speed="1">1x Normal</button>
+                <button class="preset-btn" data-speed="1.25">1.25x</button>
+                <button class="preset-btn" data-speed="1.5">1.5x</button>
+                <button class="preset-btn" data-speed="2">2x Fast</button>
+            </div>
+        </div>
     </div>
 
     <!-- Keyboard Shortcuts -->
     <div class="section">
         <div class="section-header">
-            <span>⌨️</span> Keyboard Shortcuts
+            <span class="section-header-icon">⌨️</span> Keyboard Shortcuts
         </div>
         <div class="shortcuts-grid">
             <div class="shortcut-item">
@@ -511,7 +981,7 @@
                 <kbd>Ctrl + ←</kbd>
             </div>
             <div class="shortcut-item">
-                <span>Toggle PiP</span>
+                <span>Toggle PiP Mode</span>
                 <kbd>P</kbd>
             </div>
             <div class="shortcut-item">
@@ -522,8 +992,12 @@
                 <span>Quick Volume (in PiP)</span>
                 <kbd>0</kbd> - <kbd>9</kbd>
             </div>
+            <div class="shortcut-item">
+                <span>Play/Pause</span>
+                <kbd>Space</kbd>
+            </div>
         </div>
-        <div style="padding: 0 20px 20px; text-align: center;">
+        <div style="padding: 0 24px 24px; text-align: center;">
             <p style="color: var(--text-secondary); font-size: 13px;">
                 Customize shortcuts at <a href="chrome://extensions/shortcuts" specialProto>chrome://extensions/shortcuts</a>
             </p>
@@ -533,7 +1007,7 @@
     <!-- Advanced Settings -->
     <div class="section">
         <div class="section-header">
-            <span>⚙️</span> Advanced Settings
+            <span class="section-header-icon">⚙️</span> Advanced Settings
         </div>
         <div class="section-content">
             <div class="setting-row">
@@ -549,12 +1023,25 @@
                 </div>
             </div>
         </div>
+        <div class="data-management">
+            <button class="data-btn" id="viewStorageBtn">
+                <span>📊</span> View Storage Data
+            </button>
+            <button class="data-btn" id="clearCacheBtn">
+                <span>🧹</span> Clear Cache
+            </button>
+            <button class="data-btn danger" id="resetAllBtn">
+                <span>⚠️</span> Reset All Data
+            </button>
+        </div>
     </div>
 
     <footer>
-        <p>Controls for Instagram Videos</p>
-        <p>Original author: <a href="mailto:rehfeldchris@gmail.com">Chris Rehfeld</a> | <a href="http://rehfeld.us/browser-extensions/controls-for-instagram" target="_blank">Homepage</a></p>
-        <p style="margin-top: 8px;">Instagram™ is a registered trademark. This extension is not affiliated with Instagram.</p>
+        <div class="logo">🎬</div>
+        <h3>Controls for Instagram Videos</h3>
+        <p>Original author: <a href="mailto:rehfeldchris@gmail.com">Chris Rehfeld</a></p>
+        <p><a href="http://rehfeld.us/browser-extensions/controls-for-instagram" target="_blank">Visit Homepage</a></p>
+        <p class="legal">Instagram™ is a registered trademark. This extension is not affiliated with Instagram.</p>
     </footer>
 </div>
 
