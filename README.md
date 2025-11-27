@@ -2,6 +2,35 @@
 
 Enhanced fork of the [Controls for Instagram Videos](https://chromewebstore.google.com/detail/controls-for-instagram-vi/eigfbedabacomcacemdnkelnlhgbiacn) Chrome extension with additional features and bug fixes. Kudos to the original creators - they can push these changes to the original if they want to do so.
 
+## Installation
+
+- Click [Download .zip](https://github.com/melancholic-ksm/igtool/archive/refs/heads/main.zip) and unzip it to some safe folder, for eg: ~/Documents/extension/
+
+### From Source (Developer Mode)
+
+1. Download or clone this repository   ([.zip](https://github.com/melancholic-ksm/igtool/archive/refs/heads/main.zip))
+2. Look for the extension folder (contains `manifest.json`)
+3. Open Chrome and navigate to `chrome://extensions/` (or if edge then edge://extension, brave then brave://extension and similarly on other chromium browsers. !Doesnt works on safari or firefor.
+4. Enable **Developer mode** (toggle in the top-right corner)(Ctrl+F-- Developer Mode-- esc-- toogle it on)
+5. Click **Load unpacked** and select the extension folder
+6. The extension is now installed and active
+
+### After Installation
+
+- **Reload** any Instagram tabs that were open before installing
+- The extension automatically activates on `instagram.com`
+- Click any video to see the native controls appear
+
+## Configuration
+
+Access the extension options by:
+1. Right-click the extension icon in your browser toolbar
+2. Select **Options**
+
+Or navigate directly to `chrome://extensions/`, find the extension, and click **Details** → **Extension options**
+
+---
+
 ## Description
 
 This Chrome extension adds native HTML5 video playback controls to Instagram videos. Normally, all you can do with an Instagram video is play or pause it, but this extension exposes the native HTML5 video player which provides:
@@ -51,30 +80,6 @@ This Chrome extension adds native HTML5 video playback controls to Instagram vid
 ### Global Unmute
 Once you unmute a video in a session, all subsequent videos automatically play unmuted - no more clicking the mute button on every video!
 
-## Installation
-
-### From Source (Developer Mode)
-
-1. Download or clone this repository
-2. Look for the extension folder (contains `manifest.json`)
-3. Open Chrome and navigate to `chrome://extensions/`
-4. Enable **Developer mode** (toggle in the top-right corner)
-5. Click **Load unpacked** and select the extension folder
-6. The extension is now installed and active
-
-### After Installation
-
-- **Reload** any Instagram tabs that were open before installing
-- The extension automatically activates on `instagram.com`
-- Click any video to see the native controls appear
-
-## Configuration
-
-Access the extension options by:
-1. Right-click the extension icon in your browser toolbar
-2. Select **Options**
-
-Or navigate directly to `chrome://extensions/`, find the extension, and click **Details** → **Extension options**
 
 ### Available Settings
 
