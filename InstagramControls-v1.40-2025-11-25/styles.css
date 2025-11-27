@@ -1,24 +1,414 @@
+/**
+ * Controls for Instagram Videos - Content Styles
+ * Enhanced styling for video controls on Instagram
+ */
+
+/* ===========================================
+   BUTTON POSITIONING
+   =========================================== */
+
 div.ctrls4insta-raise-button {
     bottom: 50px;
 }
+
+/* ===========================================
+   FADE EFFECTS
+   =========================================== */
+
 div.ctrls4insta-fade-button {
     opacity: 0.4;
-    transition: opacity 4s ease-out;
+    transition: opacity 0.4s ease-out;
 }
+
 div.ctrls4insta-fade-button:hover {
     opacity: 1;
-    transition: opacity .05s ease-out;
+    transition: opacity 0.1s ease-out;
 }
 
+/* ===========================================
+   VIDEO CONTROLS VISIBILITY
+   =========================================== */
 
+/* Ensure native controls display properly */
+video[data-native-controls-i-set-joo-free][controls]::-webkit-media-controls {
+    display: flex !important;
+}
 
-/*todo we can prob remove the dynamic injection of this style, but need to test more.*/
-video[data-native-controls-i-set-joo-free][controls]::-webkit-media-controls { display: flex; }
+/* Hide native play button on specific videos */
+video.ctrls4insta-disable-native-play-button[controls]::-webkit-media-controls-play-button {
+    visibility: hidden;
+}
 
-/*Maybe we'll hide the native play button sometimes in places where it no longer works well (like the home feed). not yet tho.*/
-video.ctrls4insta-disable-native-play-button[controls]::-webkit-media-controls-play-button { visibility: hidden; }
+/* ===========================================
+   HIDE INSTAGRAM'S NATIVE MUTE BUTTONS
+   =========================================== */
 
-/* Hide Instagram's custom mute/unmute button (SVG or button with aria-label=Audio or similar) */
-[aria-label="Audio"], [aria-label*="Mute"], [aria-label*="Unmute"], button[aria-label="Audio"], button[aria-label*="Mute"], button[aria-label*="Unmute"] {
+[aria-label="Audio"],
+[aria-label*="Mute"],
+[aria-label*="Unmute"],
+button[aria-label="Audio"],
+button[aria-label*="Mute"],
+button[aria-label*="Unmute"] {
     display: none !important;
+}
+
+/* ===========================================
+   CUSTOM VIDEO CONTROLS STYLING
+   =========================================== */
+
+/* Control bar container */
+.ctrls4insta-control-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+}
+
+.ctrls4insta-control-bar:hover,
+video:hover + .ctrls4insta-control-bar {
+    opacity: 1;
+}
+
+/* Control buttons */
+.ctrls4insta-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(4px);
+}
+
+.ctrls4insta-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.ctrls4insta-btn:active {
+    transform: scale(0.95);
+}
+
+/* Progress bar */
+.ctrls4insta-progress-container {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    transition: height 0.2s ease;
+}
+
+.ctrls4insta-progress-container:hover {
+    height: 6px;
+}
+
+.ctrls4insta-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #E1306C, #C13584);
+    border-radius: 2px;
+    position: relative;
+}
+
+.ctrls4insta-progress-bar::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.ctrls4insta-progress-container:hover .ctrls4insta-progress-bar::after {
+    opacity: 1;
+}
+
+/* Volume slider */
+.ctrls4insta-volume-slider {
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.ctrls4insta-btn:hover + .ctrls4insta-volume-slider,
+.ctrls4insta-volume-slider:hover {
+    width: 80px;
+}
+
+.ctrls4insta-volume-slider input[type="range"] {
+    width: 100%;
+    height: 4px;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    margin: 0;
+}
+
+.ctrls4insta-volume-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Time display */
+.ctrls4insta-time {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 12px;
+    color: white;
+    white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* ===========================================
+   PICTURE-IN-PICTURE CONTROLS
+   =========================================== */
+
+.ctrls4insta-pip-controls {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ctrls4insta-pip-controls:hover {
+    opacity: 1;
+}
+
+.ctrls4insta-pip-btn {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.ctrls4insta-pip-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.ctrls4insta-pip-btn.play-pause {
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+    background: linear-gradient(135deg, #E1306C, #C13584);
+}
+
+/* ===========================================
+   OSD (ON-SCREEN DISPLAY)
+   =========================================== */
+
+.ctrls4insta-osd {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 10000;
+    pointer-events: none;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    animation: ctrls4insta-osd-fade 2s ease forwards;
+}
+
+.ctrls4insta-osd-icon {
+    margin-right: 8px;
+}
+
+@keyframes ctrls4insta-osd-fade {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    15% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    85% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+/* ===========================================
+   DOWNLOAD BUTTON
+   =========================================== */
+
+.ctrls4insta-download-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #E1306C, #C13584);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+video:hover ~ .ctrls4insta-download-btn,
+.ctrls4insta-download-btn:hover {
+    opacity: 1;
+}
+
+.ctrls4insta-download-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.ctrls4insta-download-btn:active {
+    transform: scale(0.98);
+}
+
+/* ===========================================
+   LOADING SPINNER
+   =========================================== */
+
+.ctrls4insta-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #E1306C;
+    border-radius: 50%;
+    animation: ctrls4insta-spin 1s linear infinite;
+}
+
+@keyframes ctrls4insta-spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* ===========================================
+   TOOLTIP
+   =========================================== */
+
+.ctrls4insta-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    margin-bottom: 8px;
+}
+
+.ctrls4insta-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+.ctrls4insta-btn:hover .ctrls4insta-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ===========================================
+   DARK MODE SUPPORT
+   =========================================== */
+
+@media (prefers-color-scheme: dark) {
+    .ctrls4insta-control-bar {
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+    }
+    
+    .ctrls4insta-osd {
+        background: rgba(30, 30, 30, 0.95);
+    }
+}
+
+/* ===========================================
+   REDUCED MOTION SUPPORT
+   =========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .ctrls4insta-btn,
+    .ctrls4insta-pip-btn,
+    .ctrls4insta-download-btn,
+    .ctrls4insta-progress-bar::after {
+        transition: none;
+    }
+    
+    .ctrls4insta-osd {
+        animation: none;
+        opacity: 1;
+    }
+    
+    .ctrls4insta-loading {
+        animation: none;
+    }
 }
