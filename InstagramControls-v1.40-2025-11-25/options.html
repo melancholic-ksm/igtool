@@ -1,230 +1,561 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Controls for Instagram Videos Extension Config</title>
+    <title>Controls for Instagram Videos - Settings</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        :root {
+            --primary-color: #E1306C;
+            --primary-hover: #C13584;
+            --success-color: #4caf50;
+            --bg-color: #fafafa;
+            --card-bg: #ffffff;
+            --text-color: #262626;
+            --text-secondary: #8e8e8e;
+            --border-color: #dbdbdb;
+            --section-bg-odd: #f8f9fa;
+            --section-bg-even: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 20px;
         }
 
-        h1 {
-            font-weight: normal;
-            font-size: 3em;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        h2 {
-            font-weight: normal;
-            font-size: 2em;
-        }
-
-        .tcenter {
+        header {
             text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-hover), #833AB4);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .status-banner {
+            background: linear-gradient(90deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-banner .icon {
+            font-size: 20px;
+        }
+
+        .status-banner p {
+            color: #2e7d32;
+            font-weight: 500;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+            color: white;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-content {
+            padding: 0;
+        }
+
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 20px;
+        }
+
+        .setting-row:last-child {
+            border-bottom: none;
+        }
+
+        .setting-row:nth-child(odd) {
+            background-color: var(--section-bg-odd);
+        }
+
+        .setting-row:nth-child(even) {
+            background-color: var(--section-bg-even);
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-info h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-color);
+        }
+
+        .setting-info p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .setting-control {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        input:checked + .toggle-slider {
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Number Input */
+        input[type="number"] {
+            width: 80px;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(225, 48, 108, 0.1);
+        }
+
+        /* Keyboard Shortcuts Section */
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--section-bg-odd);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .shortcut-item span {
+            font-size: 13px;
+            color: var(--text-color);
         }
 
         kbd {
             display: inline-block;
-            margin: 0 .1em;
-            padding: .1em .6em;
-            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-            font-size: 11px;
-            line-height: 1.4;
-            color: #242729;
-            text-shadow: 0 1px 0 #FFF;
-            background-color: #e1e3e5;
-            border: 1px solid #adb3b9;
-            border-radius: 3px;
-            box-shadow: 0 1px 0 rgba(12,13,14,0.2), 0 0 0 2px #FFF inset;
-            white-space: nowrap;
-        }
-        [type=number] {
-            width: 4em;
-        }
-        td label {
-            padding: 4em 2em;
-        }
-        th {
-            text-align: center;
-        }
-        th, td {
-            padding: 2px 8px;
-        }
-        .centered {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .visible {
-            visibility: visible;
-            opacity: 1;
-            transition: opacity 0.05s linear;
-        }
-        .hidden {
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s 2s, opacity 2s linear;
-        }
-        .config-table {
-            width: 60%;
-            margin: auto;
-        }
-        .config-table td {
-            padding: 1em 0.5em;
-        }
-        .config-table tr:nth-child(even) {
+            padding: 4px 8px;
+            font-family: "SF Mono", Monaco, "Courier New", monospace;
+            font-size: 12px;
+            color: var(--text-color);
             background-color: #f1f3f5;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
-        .config-table tr:nth-child(odd) {
-            background-color: #e1e3e5;
+
+        /* Features List */
+        .features-list {
+            padding: 20px;
         }
-        .explanation {
-            font-weight: normal;
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
         }
-        .explanation ul {
-            display: inline-block;
-            text-align: left;
+
+        .feature-item:last-child {
+            border-bottom: none;
         }
+
+        .feature-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .feature-text p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Status Notification */
         #status {
             position: fixed;
             top: 20px;
             right: 20px;
-            width: 200px;
-            padding: 1em;
+            background: var(--success-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .visible {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+
+        .hidden {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s 1.5s, opacity 1.5s ease;
+        }
+
+        /* Image */
+        .setting-image {
+            margin-top: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            max-width: 250px;
+        }
+
+        /* Links */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .setting-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .setting-control {
+                align-self: flex-start;
+            }
+            
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="tcenter">
-    <h1>Controls for Instagram Videos</h1>
-    <div>
-        <span style="background: rgba(100, 200, 100, 0.2); padding: 1em;">
-            <strong>✓</strong> Volume and playback speed are now remembered across videos and page reloads.
-        </span>
+<div class="container">
+    <header>
+        <h1>🎬 Controls for Instagram Videos</h1>
+        <p>Enhanced video controls for a better Instagram experience</p>
+    </header>
+
+    <div class="status-banner">
+        <span class="icon">✓</span>
+        <p>Volume and playback speed are automatically remembered across videos and page reloads.</p>
     </div>
-    <br>
-    <hr>
-    <h2>Extension Config</h2>
 
-</div>
+    <div id="status" class="hidden">✓ Settings Saved</div>
 
-<div class="centered tcenter">
+    <!-- Features Section -->
+    <div class="section">
+        <div class="section-header">
+            <span>✨</span> Features
+        </div>
+        <div class="features-list">
+            <div class="feature-item">
+                <span class="feature-icon">🎬</span>
+                <div class="feature-text">
+                    <h4>Native Video Controls</h4>
+                    <p>Seek bar, volume slider, play/pause, fullscreen, and download button on all Instagram videos.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🔊</span>
+                <div class="feature-text">
+                    <h4>Volume Memory</h4>
+                    <p>Your volume preference is remembered and applied to all videos automatically.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">⏩</span>
+                <div class="feature-text">
+                    <h4>Playback Speed</h4>
+                    <p>Control video speed from 0.125x to 16x and have it remembered for future videos.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🖼️</span>
+                <div class="feature-text">
+                    <h4>Picture-in-Picture</h4>
+                    <p>Watch videos in a floating window with custom controls. Press <kbd>P</kbd> to toggle.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <span class="feature-icon">🔇</span>
+                <div class="feature-text">
+                    <h4>Global Unmute</h4>
+                    <p>Unmute once and all subsequent videos play with sound - no more clicking mute on every video!</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <form>
-        <div id="status" class="hidden">Config Saved.</div>
+    <!-- Volume Settings -->
+    <div class="section">
+        <div class="section-header">
+            <span>🔊</span> Volume Settings
+        </div>
+        <div class="section-content">
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h3>Remember Volume Level</h3>
+                    <p>When enabled, your volume preference will be saved and applied to all videos, including videos currently playing on the same page.</p>
+                </div>
+                <div class="setting-control">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="rememberVolumeLevel">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h3>Current Volume Level</h3>
+                    <p>Set the volume level (0 = muted, 1 = 100%). You can also adjust using the video controls or hotkeys.</p>
+                </div>
+                <div class="setting-control">
+                    <input type="number" id="volumeLevel" min="0" max="1" step="0.1" value="1">
+                </div>
+            </div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h3>Volume Adjustment Step</h3>
+                    <p>How much the volume changes when using hotkeys. Recommended: 0.1 or 0.2</p>
+                </div>
+                <div class="setting-control">
+                    <input type="number" id="volumeAdjustmentStepSize" min="0.01" max="1" step="0.01" value="0.1">
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <table class="config-table">
-            <tbody>
-            <tr>
-                <th>
-                    <h2>Remember Video Volume Level</h2>
+    <!-- Playback Settings -->
+    <div class="section">
+        <div class="section-header">
+            <span>⏩</span> Playback Speed Settings
+        </div>
+        <div class="section-content">
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h3>Remember Playback Rate</h3>
+                    <p>When enabled, your playback speed preference will be saved and applied to all videos.</p>
+                </div>
+                <div class="setting-control">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="rememberPlaybackRate">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h3>Current Playback Rate</h3>
+                    <p>Normal speed is 1.0. Recommended range: 0.125 to 4.0. Values outside this range may not work or may have no audio.</p>
+                </div>
+                <div class="setting-control">
+                    <input type="number" id="playbackRate" min="0.001" max="64" step="0.1" value="1">
+                </div>
+            </div>
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h3>Playback Rate Step</h3>
+                    <p>How much the speed changes when using hotkeys. Recommended: 0.125 or 0.25. Using multiples of 0.25 will show a checkmark in the native speed menu.</p>
+                    <img src="icons/playback-speed-gui.png" class="setting-image" alt="Playback speed menu example">
+                </div>
+                <div class="setting-control">
+                    <input type="number" id="playbackRateAdjustmentStepSize" min="0.001" max="8" step="0.125" value="0.125">
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <div class="explanation">
-                        <p>If you enable this option, then when you change the volume of a video it
-                            will be remembered and used not only for videos you encounter in the future, but also for other videos
-                            currently in the same page (even if they're paused). You can adjust the volume either
-                            by using the control menu in the bottom-right corner of the video, or you can change it via
-                            a <a href="chrome://extensions/shortcuts" specialProto>hotkey / shortcut</a>.
-                        </p>
-                    </div>
-                </th>
-                <td>
-                    <label><input type="checkbox" id="rememberVolumeLevel"></label>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h2>Current Volume Level</h2>
-                    <div class="explanation">
-                        <p>The range is 0 to 1 (100%).</p>
-                    </div>
-                </th>
-                <td>
-                    <label><input type="number" id="volumeLevel" min="0" max="1" step="0.1" value="1"></label>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h2>Volume Adjustment Step Size</h2>
-                    <div class="explanation">
-                        <p>When you use hotkeys to adjust the volume up or down, this setting determines
-                            how much the volume will change each time you press the hotkey. Recommended value is 0.1 or 0.2.</p>
-                    </div>
-                </th>
-                <td>
-                    <label><input type="number" id="volumeAdjustmentStepSize" min="0.01" max="1" step="0.01" value="0.1"></label>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h2>Remember Video Playback Rate</h2>
+    <!-- Keyboard Shortcuts -->
+    <div class="section">
+        <div class="section-header">
+            <span>⌨️</span> Keyboard Shortcuts
+        </div>
+        <div class="shortcuts-grid">
+            <div class="shortcut-item">
+                <span>Increase Volume</span>
+                <kbd>Ctrl + ↑</kbd>
+            </div>
+            <div class="shortcut-item">
+                <span>Decrease Volume</span>
+                <kbd>Ctrl + ↓</kbd>
+            </div>
+            <div class="shortcut-item">
+                <span>Next Reel</span>
+                <kbd>Ctrl + →</kbd>
+            </div>
+            <div class="shortcut-item">
+                <span>Previous Reel</span>
+                <kbd>Ctrl + ←</kbd>
+            </div>
+            <div class="shortcut-item">
+                <span>Toggle PiP</span>
+                <kbd>P</kbd>
+            </div>
+            <div class="shortcut-item">
+                <span>Mute/Unmute (in PiP)</span>
+                <kbd>M</kbd>
+            </div>
+            <div class="shortcut-item">
+                <span>Quick Volume (in PiP)</span>
+                <kbd>0</kbd> - <kbd>9</kbd>
+            </div>
+        </div>
+        <div style="padding: 0 20px 20px; text-align: center;">
+            <p style="color: var(--text-secondary); font-size: 13px;">
+                Customize shortcuts at <a href="chrome://extensions/shortcuts" specialProto>chrome://extensions/shortcuts</a>
+            </p>
+        </div>
+    </div>
 
-                    <div class="explanation">
-                        <p>If you enable this option, then when you change the playback rate of a video it
-                            will be remembered and used not only for videos you encounter in the future, but also for other videos
-                            currently in the same page (even if they're paused). You can adjust the video playback speed either
-                            by using the control menu in the bottom-right corner of the video, or you can change it via
-                            a <a href="chrome://extensions/shortcuts" specialProto>hotkey / shortcut</a>.
-                        </p>
-                    </div>
+    <!-- Advanced Settings -->
+    <div class="section">
+        <div class="section-header">
+            <span>⚙️</span> Advanced Settings
+        </div>
+        <div class="section-content">
+            <div class="setting-row">
+                <div class="setting-info">
+                    <h3>Debug Mode</h3>
+                    <p>Enable this to log debug information to the browser console. Useful for troubleshooting issues with the extension.</p>
+                </div>
+                <div class="setting-control">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="debugMode">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                </th>
-                <td>
-                    <label><input type="checkbox" id="rememberPlaybackRate"></label>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h2>Current Playback Rate</h2>
-                    <div class="explanation">
-                        <p>Normal speed is 1.0. The Video Playback Rate range of 0.125 to 4.0 is recommended.</p>
-
-                        <p>Using values outside that range may not work at all, or you may not hear any audio.
-                            As of Nov 1st 2019, Chrome Version 80 seems to allow a range of 0.0625 to 16. The range that works may change in the future,
-                            and may change if you update hardware or drivers.</p>
-                    </div>
-                </th>
-                <td>
-                    <label><input type="number" id="playbackRate" min="0.001" max="64" step="0.1" value="1"></label>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h2>Playback Rate Adjustment Step Size</h2>
-                    <div class="explanation">
-                        <p>When you use hotkeys to adjust the playback rate up or down, this setting determines
-                            how much the rate will change each time you press the hotkey. Recommended value is either
-                            0.125 or 0.25.</p>
-
-                        <p>Note: the native video playback rate GUI controls in the bottom-right corner of videos
-                            uses a step size of 0.25, so if your current speed happens to be a multiple of 0.25, then
-                            the native GUI will show a checkmark next to your speed, which gives you an easy way to see
-                            what the current speed actually is. But if you don't care about that,
-                            then feel free to use any step size you like. Example:</p>
-                        <p><img src="icons/playback-speed-gui.png" style="width: 300px;"></p>
-                    </div>
-                </th>
-                <td>
-                    <label><input type="number" id="playbackRateAdjustmentStepSize" min="0.001" max="8" step="0.125" value="0.125"></label>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <h2>Debug Mode</h2>
-                    <div class="explanation">
-                        <p>Enable this option to log debug information to the browser console.
-                            Useful for troubleshooting issues with the extension.</p>
-                    </div>
-                </th>
-                <td>
-                    <label><input type="checkbox" id="debugMode"></label>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-    </form>
-
+    <footer>
+        <p>Controls for Instagram Videos</p>
+        <p>Original author: <a href="mailto:rehfeldchris@gmail.com">Chris Rehfeld</a> | <a href="http://rehfeld.us/browser-extensions/controls-for-instagram" target="_blank">Homepage</a></p>
+        <p style="margin-top: 8px;">Instagram™ is a registered trademark. This extension is not affiliated with Instagram.</p>
+    </footer>
 </div>
 
 <script src="options.js"></script>
