@@ -106,7 +106,7 @@ Or navigate directly to `chrome://extensions/`, find the extension, and click **
 
 ## Changelog
 
-For the full changelog with version history, see the `README.txt` file inside the extension folder.
+For the full changelog with version history, see the `README.md` file inside the extension folder.
 
 ### Fork Enhancements (over v1.33)
 This fork includes the following improvements over the original v1.33 release:
