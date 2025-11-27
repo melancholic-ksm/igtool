@@ -56,10 +56,10 @@ Once you unmute a video in a session, all subsequent videos automatically play u
 ### From Source (Developer Mode)
 
 1. Download or clone this repository
-2. Find the extension folder inside (named like `InstagramControls-vX.XX-...`)
+2. Look for the extension folder (contains `manifest.json`)
 3. Open Chrome and navigate to `chrome://extensions/`
 4. Enable **Developer mode** (toggle in the top-right corner)
-5. Click **Load unpacked** and select the extension folder containing `manifest.json`
+5. Click **Load unpacked** and select the extension folder
 6. The extension is now installed and active
 
 ### After Installation
@@ -100,7 +100,7 @@ Or navigate directly to `chrome://extensions/`, find the extension, and click **
 
 ## Known Issues
 
-- The download button doesn't work on many videos due to recent Instagram changes, but still works on some
+- The download button doesn't work on many videos due to Instagram's content protection; it may still work on older or less protected content
 - Volume mute/unmute buttons may occasionally get out of sync with Instagram's GUI
 - On Stories, you must use the Instagram play/pause button (native video button doesn't work)
 
