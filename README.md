@@ -56,10 +56,10 @@ Once you unmute a video in a session, all subsequent videos automatically play u
 ### From Source (Developer Mode)
 
 1. Download or clone this repository
-2. Locate the extension folder (e.g., `InstagramControls-vX.XX-YYYY-MM-DD`)
+2. Find the extension folder inside (named like `InstagramControls-vX.XX-...`)
 3. Open Chrome and navigate to `chrome://extensions/`
 4. Enable **Developer mode** (toggle in the top-right corner)
-5. Click **Load unpacked** and select the extension folder
+5. Click **Load unpacked** and select the extension folder containing `manifest.json`
 6. The extension is now installed and active
 
 ### After Installation
@@ -106,7 +106,7 @@ Or navigate directly to `chrome://extensions/`, find the extension, and click **
 
 ## Changelog
 
-See the full changelog in the `README.txt` file within the extension folder.
+For the full changelog with version history, see the `README.txt` file inside the extension folder.
 
 ### Recent Updates (v1.40)
 - Enhanced Picture-in-Picture with custom on-screen controls
