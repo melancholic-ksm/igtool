@@ -108,7 +108,8 @@ Or navigate directly to `chrome://extensions/`, find the extension, and click **
 
 For the full changelog with version history, see the `README.txt` file inside the extension folder.
 
-### Recent Updates (v1.40)
+### Fork Enhancements (over v1.33)
+This fork includes the following improvements over the original v1.33 release:
 - Enhanced Picture-in-Picture with custom on-screen controls
 - Global unmute state - unmute once, all videos play unmuted
 - Improved volume persistence across rapid video changes
@@ -125,6 +126,7 @@ For the full changelog with version history, see the `README.txt` file inside th
 ## Technical Details
 
 - **Manifest Version**: 3 (MV3)
+- **Base Version**: 1.33 (fork enhancements added)
 - **Minimum Chrome Version**: 88
 - **Permissions**: `storage` only
 - **Content Scripts**: Runs on `*.instagram.com`
