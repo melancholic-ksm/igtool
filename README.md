@@ -191,9 +191,17 @@ What it does track and collect:
 - Quality assurance data, such as how many javascript errors you encountered, if any. Also, how many times the extension code was run.
 - Extension usage statistics. For example, did you use the feature which allows you to change the playback rate?
 
-To be clear, it does NOT track or collect which urls, websites, or any data derived from the pages you visit such as account names / friends.
+*To be clear, it does NOT track or collect which urls, websites, or any data derived from the pages you visit such as account names / friends.
 
 All data collected is used strictly to improve the extension. Your data is never sold, or shared with anyone. I am a 1 person team."
 
 
-and for verification, reverification all codes are disclosed and opensourced under [Apache License 2.0](https://github.com/melancholic-ksm/igtool/blob/main/LICENSE), feel free to examine code and resource under this tool. Their is no motive of earning or personal gain from this fork of particular extension. Maybe you can support author somewhere at [refeld.us](http://refeld.us/) or from his socials. Thankyou.
+and for verification, reverification all codes are disclosed and opensourced under [Apache License 2.0](https://github.com/melancholic-ksm/igtool/blob/main/LICENSE), feel free to examine code and resource under this tool. Their is no motive of earning or personal gain from this fork of particular extension. Maybe you can support author somewhere at [refeld.us](http://refeld.us/) or from his socials. Thankyou.*
+
+## About Me
+
+* **I am a newbie Web Developer, working small projects at free time for education purpose and problem solving.**
+* ***although its not my core feild but I love coding and stuff🪷***
+* Contact me at mail: ` [harsh4personalwork@gmail.com](mailto:harsh4personalwork@gmail.com ` [donot spam] 
+
+
