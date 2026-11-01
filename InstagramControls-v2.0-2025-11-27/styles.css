@@ -40,19 +40,6 @@ video.ctrls4insta-disable-native-play-button[controls]::-webkit-media-controls-p
 }
 
 /* ===========================================
-   HIDE INSTAGRAM'S NATIVE MUTE BUTTONS
-   =========================================== */
-
-[aria-label="Audio"],
-[aria-label*="Mute"],
-[aria-label*="Unmute"],
-button[aria-label="Audio"],
-button[aria-label*="Mute"],
-button[aria-label*="Unmute"] {
-    display: none !important;
-}
-
-/* ===========================================
    CUSTOM VIDEO CONTROLS STYLING
    =========================================== */
 

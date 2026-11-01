@@ -1424,8 +1424,62 @@ function InstagramVideoControls() {
         }
     }
 
+    // Liberar a barra HTML5 sem desativar os botoes de audio do Instagram.
+    function fixVideoOverlays(video) {
+        const rect = video.getBoundingClientRect();
+        if (rect.width < 80 || rect.height < 80 ||
+            rect.bottom > window.innerHeight || rect.bottom < 24 ||
+            rect.right < 0 || rect.left > window.innerWidth) {
+            return;
+        }
+
+        const y = Math.round(rect.bottom - 20);
+        for (const ratio of [0.15, 0.5, 0.85]) {
+            const x = Math.round(rect.left + rect.width * ratio);
+            if (x < 0 || x >= window.innerWidth || y < 0) continue;
+
+            const elements = document.elementsFromPoint(x, y);
+            const videoIndex = elements.indexOf(video);
+            if (videoIndex < 0) continue;
+
+            for (const overlay of elements.slice(0, videoIndex)) {
+                if (!(overlay instanceof HTMLElement) || overlay.contains(video)) continue;
+                overlay.style.setProperty('pointer-events', 'none', 'important');
+            }
+        }
+    }
+
+    const instagramAudioSelector = [
+        'button[aria-label*="audio" i]',
+        'button[aria-label*="mute" i]',
+        'button[aria-label*="som" i]',
+        'button[aria-label*="volume" i]',
+        '[role="button"][aria-label*="audio" i]',
+        '[role="button"][aria-label*="mute" i]',
+        '[role="button"][aria-label*="som" i]',
+        'svg[aria-label*="audio" i]',
+        'svg[aria-label*="mute" i]',
+        'svg[aria-label*="som" i]'
+    ].join(',');
+
+    function restoreInstagramMuteButtons() {
+        document.querySelectorAll(instagramAudioSelector).forEach(element => {
+            const button = element.closest('button, [role="button"]') || element;
+            if (!(button instanceof HTMLElement)) return;
+
+            button.style.setProperty('pointer-events', 'auto', 'important');
+            if (getComputedStyle(button).position === 'static') {
+                button.style.setProperty('position', 'relative', 'important');
+            }
+            button.style.setProperty('z-index', '2147483647', 'important');
+        });
+    }
+
     function modifyAllPresentVideos() {
-        getVideos().forEach(modifyVideo);
+        const videos = getVideos();
+        videos.forEach(modifyVideo);
+        videos.forEach(fixVideoOverlays);
+        restoreInstagramMuteButtons();
     }
 
     function hide(el) {

@@ -1,0 +1,76 @@
+{
+  "manifest_version": 3,
+  "author": "Chris Rehfeld rehfeldchris@gmail.com",
+  "homepage_url": "http://rehfeld.us/browser-extensions/controls-for-instagram",
+  "name": "Controls for Instagram Videos",
+  "short_name": "Ctrls4Insta",
+  "description": "Adds video playback controls to Instagram videos embedded in web pages (seek bar, volume, play/pause, download video button).",
+  "version": "1.33",
+  "minimum_chrome_version": "88",
+
+  "content_scripts": [{
+    "matches": ["https://*.instagram.com/*"],
+    "all_frames": true,
+    "js": [
+      "Stackframe.js",
+      "ErrorStackParser.js",
+      "ic-util.js",
+      "InstagramVideoControls.js",
+      "ic-content-script-init.js"
+    ],
+    "css": [
+      "styles.css"
+    ]
+  }],
+  "background": {
+    "service_worker": "ic-background.js"
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "storage"
+  ],
+  "icons": {
+    "16": "icons/play-16x16.png",
+    "48": "icons/play-48x48.png",
+    "128": "icons/play-128x128.png"
+  },
+  "commands": {
+    "volume-increase": {
+      "suggested_key": {
+        "default": "Ctrl+Up",
+        "mac": "Command+Up"
+      },
+      "description": "Increase video volume"
+    },
+    "volume-decrease": {
+      "suggested_key": {
+        "default": "Ctrl+Down",
+        "mac": "Command+Down"
+      },
+      "description": "Decrease video volume"
+    },
+    "playback-speed-increase": {
+      "description": "Increase video playback speed"
+    },
+    "playback-speed-decrease": {
+      "description": "Decrease video playback speed"
+    },
+    "playback-speed-reset": {
+      "description": "Reset video playback speed to 1.0"
+    },
+    "next-reel": {
+      "suggested_key": {
+        "default": "Ctrl+Right",
+        "mac": "Command+Right"
+      },
+      "description": "Navigate to next reel"
+    },
+    "previous-reel": {
+      "suggested_key": {
+        "default": "Ctrl+Left",
+        "mac": "Command+Left"
+      },
+      "description": "Navigate to previous reel"
+    }
+  }
+}
